@@ -1,0 +1,191 @@
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder">
+
+  <ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+    <li class="breadcrumb-item active">Loan-Payment <i class="fa fa-edit"></i></li>
+  </ul>
+
+</div>
+<section class="forms">
+  <div class="container-fluid">
+    <!-- Page Header-->
+    <!-- <header>
+        <h3 class="h2 display">Forms </h3>
+      </header> -->
+    <div class="col-lg-12">
+      <!-- <div class="card"> -->
+      <!-- <div class="card-header d-flex align-items-center">
+          
+          <h4>Edit Loan-Payment</h4>
+        </div> -->
+
+      <!-- <div class="card-body"> -->
+      <form class="form-horizontal"  (ngSubmit)="addUpdateLoanPaymentMaster()">
+
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">
+              <label>तालुका </label>
+              <div *ngIf="button =='Add'">
+                <ngx-select  [allowClear]="true" name="inputTaluka"
+                             [(ngModel)]="selectedTaluka" 
+                             (focus)="loadTaluka()"  (select)="getSelectedTaluka($event)" 
+                             [items]="talukaList" placeholder="तालुका शोधा किंवा निवडा">
+                </ngx-select>
+              </div>
+              <div *ngIf="button =='Update'" >
+                  <input type="text" class="form-control" name="inputTaluka" [(ngModel)]="selectedTaluka" readonly/>
+              </div>
+            </div>
+            
+            <div class="col-sm-4">
+              <label>गावाचे नाव </label>
+              <div *ngIf="button =='Add'">
+                <ngx-select  [allowClear]="true" name="inputVillage" [(ngModel)]="selectedVillage" (focus)="loadVillages()" (select)="getSelectedVillage($event)" [items]="villageList" placeholder="गावाचे नाव शोधा किंवा निवडा">
+                </ngx-select>
+              </div>
+              <div *ngIf="button =='Update'" >
+                  <input type="text" class="form-control" name="inputVillage" [(ngModel)]="selectedVillage" readonly/>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label>कामाचा तपशील </label>
+              <div *ngIf="button =='Add'">
+                <ngx-select [allowClear]="true" name="inputWorkParticulars" [(ngModel)]="selectedWorkP" (focus)="loadWorkParticulars()" (select)="getSelectedWorkP($event)" [items]="workList" placeholder="कामाचा तपशील शोधा किंवा निवडा">
+                </ngx-select>
+              </div>
+              <div *ngIf="button =='Update'" >
+                  <input type="text" class="form-control" name="inputWorkParticulars" [(ngModel)]="selectedWorkP" readonly/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">
+              <label>ठराव दिनांक </label>
+              <div>
+                <input type="text" name="inputGrantDate" [bsConfig]="datePickerConfigWithoutMin" placeholder="ठराव दिनांक" value="{{ grantDate }}" class="form-control" bsDatepicker>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label>ठराव क्रमांक </label>
+              <div>
+                <input name="inputOrderNo" type="text" placeholder="ठराव क्रमांक" value="{{ orderNumber }}" class="form-control form-control-success">
+              </div>
+
+            </div>
+
+            <div class="col-sm-4">
+              <label>आदेश क्रमांक </label>
+              <div>
+                <input name="inputLedgerNo" type="text" placeholder="आदेश क्रमांक " value="{{ ledgerNumber }}" class="form-control form-control-success">
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <br />
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">
+              <label>कर्जाची मंजूर रक्कम </label>
+              <div>
+                <input name="inputLoanAmt" type="text" placeholder="कर्जाची मंजूर रक्कम " value="{{ loanAmount }}" class="form-control form-control-success">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="line"></div>
+
+
+        <ngb-tabset #tabRef="ngbTabset">
+                            
+            <!-- <tab title="Personel Details"> -->
+          <ngb-tab title="हप्त्याचा तपशील" id="tab1">
+              <ng-template ngbTabContent>
+
+        <!-- <tabset>
+          <tab title="हप्त्याचा तपशील"> -->
+            <div class="card-body">
+              <div class="form-group row">
+                <label class="col-sm-2">हफ्ता नंबर </label>
+                <div class="col-sm-4">
+                  <ngx-select name="inputInstallNo" [allowClear]="true" [(ngModel)]="model.installmentNumber" [items]="['1', '2','3']" placeholder="हफ्ता नंबर शोधा किंवा निवडा">
+                  </ngx-select>
+                </div>
+                <label class="col-sm-2">कर्ज दिल्याची तारीख </label>
+                <div class="col-sm-4">
+                  <input name="inputInstallDate" type="text" [bsConfig]="datePickerConfigWithoutMin" [(ngModel)]="model.grantDate" placeholder="कर्ज दिल्याची तारीख " class="form-control" bsDatepicker>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2">हफ्त्याची रक्कम </label>
+                <div class="col-sm-4">
+                  <input name="inputInstallAmt" type="text" [(ngModel)]="model.installmentAmount" placeholder="हफ्त्याची रक्कम " class="form-control form-control-success">
+                </div>
+                <label class="col-sm-2">कर्जाची शिल्लक रक्कम </label>
+                <div class="col-sm-4">
+                  <input name="inputBalAmt" type="text" [(ngModel)]="model.amount" placeholder="कर्जाची शिल्लक रक्कम  " class="form-control form-control-success">
+                </div>
+              </div>
+              <div class="form-group row">
+                  <div class="col-sm-6"></div>
+                   <button class="btn btn-primary" (click)="tabRef.select('tab2')">Next</button>
+             </div>
+            </div>
+            </ng-template>
+          </ngb-tab>
+
+          <!-- </tab>
+          <tab title="बँकेचा तपशील "> -->
+         <ngb-tab title="बँकेचा तपशील" id="tab2">
+           <ng-template ngbTabContent>
+            <div class="card-body">
+              <div class="form-group row">
+                <label class="col-sm-2">बँक नंबर </label>
+                <div class="col-sm-4">
+                  <input name="inputChequeNo" type="text" [(ngModel)]="model.chequeNo" placeholder="बँक नंबर " class="form-control form-control-success">
+                </div>
+                <label class="col-sm-2">Issue Date</label>
+                <div class="col-sm-4">
+                  <input name="inputIssueDate" type="text" [bsConfig]="datePickerConfigWithoutMin" [(ngModel)]="model.issueDate" placeholder="Issue Date" class="form-control" bsDatepicker>
+                </div>
+              </div>
+              <div class="form-group row">
+
+                <label class="col-sm-2">बँकेचे नाव </label>
+                <div class="col-sm-4">
+                  <input name="inputBankName" type="text" [(ngModel)]="model.bankName" placeholder="बँकेचे नाव" class="form-control form-control-success">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                  <div class="col-sm-4 offset-sm-2">
+                    <button title="{{ button == 'Update' ? 'Update' : 'Add' }}" type="submit" class="btn btn-primary">{{button}}</button> &nbsp;
+                            &nbsp; &nbsp;
+                    <button title="{{ button == 'Update' ? 'Cancel' : 'Clear' }}" type="{{ button == 'Update' ? 'button' : 'reset' }}" (click)="Cancel()"
+                                  class="btn btn-danger">{{ button == 'Update' ? 'Cancel' : 'Clear' }}</button>
+        
+                  </div>
+                </div>
+
+            </div>
+            </ng-template>
+          </ngb-tab>
+         
+        </ngb-tabset>
+          <!-- </tab>
+        </tabset> -->
+        
+
+      </form>
+      <!-- </div> -->
+      <!-- </div> -->
+    </div>
+  </div>
+</section>

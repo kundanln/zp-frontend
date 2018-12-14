@@ -1,0 +1,107 @@
+<!-- Side Navbar -->
+<nav class="side-navbar">
+  <div class="side-navbar-wrapper">
+    <!-- Sidebar Header    -->
+    <div class="sidenav-header d-flex align-items-center justify-content-center">
+      <!-- User Info-->
+      <div class="sidenav-header-inner text-center">
+         <img src="assets/img/nashik.png" alt="person1"  class="img-fluid rounded-circle"> 
+        <!-- <h5></h5><span></span> -->
+      </div>
+      <!-- Small Brand information, appears on minimized sidebar-->
+      <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>Z</strong><strong
+            class="text-primary">P</strong></a></div>
+    </div>
+    <!-- Sidebar Navigation Menus-->
+    <div class="main-menu">
+      <h5 class="sidenav-heading">Main Menu<span style="margin-left:15px;">
+      <!-- <a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html"
+              class="navbar-brand">            
+       </a> --></span></h5> 
+      <ul id="side-main-menu" class="side-menu list-unstyled">
+        <li><a href="index.html"> <i class="icon-home"></i>Home </a></li>
+        <li><a routerLink="/village-list"> <i class="icon-form active"></i>Village Master </a></li>
+        <li><a routerLink="/zp-list"> <i class="fa fa-bar-chart"></i>Zp Master </a></li>
+        <li><a routerLink="/loan-payment-list"> <i class="icon-grid"></i>Loan Payment Master </a></li>
+        <li><a routerLink="/receipt-entry-add"> <i class="icon-grid"></i>Receipt Entry Master </a></li>
+        <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Report</a>
+          <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+            <li><a href="#">Page</a></li>
+            <li><a href="#">Page</a></li>
+            <li><a href="#">Page</a></li>
+          </ul>
+        </li>
+        <!-- <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page </a></li>
+        <li> <a href="#"> <i class="icon-mail"></i>Demo
+            <div class="badge badge-warning">6 New</div></a></li> -->
+      </ul>
+    </div>
+    <!-- <div class="admin-menu">
+      <h5 class="sidenav-heading">Second menu</h5>
+      <ul id="side-admin-menu" class="side-menu list-unstyled">
+        <li> <a href="#"> <i class="icon-screen"> </i>Demo</a></li>
+        <li> <a href="#"> <i class="icon-flask"> </i>Demo
+            <div class="badge badge-info">Special</div></a></li>
+        <li> <a href=""> <i class="icon-flask"> </i>Demo</a></li>
+        <li> <a href=""> <i class="icon-picture"> </i>Demo</a></li>
+      </ul>
+    </div> -->
+  </div>
+</nav>
+
+<div class="page">
+  <!-- navbar-->
+  <header class="header">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="navbar-holder d-flex align-items-center justify-content-between">
+            <div class="navbar-header">
+              <span>
+                <!-- <img src="assets/img/nashik.png"  style="margin-left: 52px;"alt="person" class="img-fluid rounded-circle"> -->
+                <a id="toggle-btn" href="#" class="menu-btn">
+                        <i class="icon-bars"> </i>
+                </a>
+              </span>
+              <a href="index.html" class="navbar-brand">
+
+               <div class="brand-text d-none d-md-inline-block">
+                <!-- <span><img src="assets/img/nashik.png"  style="height: 25px;"alt="person" class="img-fluid rounded-circle"></span> -->
+                <strong class="text-primary">जिल्हा परिषद नाशिक </strong>&nbsp;
+                <span> जिल्हा ग्रामविकास निधी </span>
+              </div> 
+            </a>
+          </div>
+          <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+           <!-- Log out-->
+            <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i
+                  class="fa fa-sign-out"></i></a></li>
+          </ul>
+        </div>
+        
+      </div>
+    </nav>
+    
+  </header>
+
+
+  <!-- <app-village-add></app-village-add> -->
+  <!-- <app-zp-add></app-zp-add> -->
+  <!-- <app-loan-payment-add></app-loan-payment-add> -->
+  <router-outlet></router-outlet>
+
+
+  <footer class="main-footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <p>Copyright@Avinash Consultancy Services, Pune. All right reserved. &copy; 2017-2019</p>
+        </div>
+        <div class="col-sm-6 text-right">
+          <p>Design by <a href="https://avics.co.in/" class="external">AVICS</a></p>
+          <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions and it helps me to run Bootstrapious. Thank you for understanding :)-->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>

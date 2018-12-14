@@ -1,0 +1,38 @@
+<div class="box-header with-border">
+    &nbsp; &nbsp;<i class="fa fa-book" > &nbsp;<span><h5 class="box-title"> ZP Master</h5></span></i>
+ 
+  <div class="box-tools pull-right">
+    <span>
+        <a [routerLink]="['/zp-add']">
+            <i class="fa fa-fw fa-plus"></i> Add New Record &nbsp;
+        </a>
+    </span>
+  </div>
+</div>
+
+<div class="box-body">
+    <div class="row">
+      <div class="col-md-12">
+          <div style="height: 100%; box-sizing: border-box;">
+
+<ag-grid-angular 
+    style="width: 1150px; height: 515px;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    [context]="context"
+            [frameworkComponents]="frameworkComponents"
+            [rowSelection]="rowSelection"
+            enableColResize
+            rowHeight="40"
+            [pagination]="true"
+            [paginationPageSize]="5"
+            [animateRows]="true"
+            [enableSorting]="true"
+            [enableFilter]="false"
+            [floatingFilter]="true">
+</ag-grid-angular>
+</div>
+</div>
+</div>
+</div>

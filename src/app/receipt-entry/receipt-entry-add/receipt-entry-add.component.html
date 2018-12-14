@@ -1,0 +1,390 @@
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder">
+
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Receipt Entry <i class="fa fa-edit"></i></li>
+    </ul>
+  
+  </div>
+  <section class="forms">
+    <div class="container-fluid">
+      <!-- Page Header-->
+      <!-- <header>
+          <h3 class="h2 display">Forms </h3>
+        </header> -->
+      <div class="col-lg-12">
+        <!-- <div class="card"> -->
+        <!-- <div class="card-header d-flex align-items-center">
+            
+            <h4>Edit Loan-Payment</h4>
+          </div> -->
+  
+        <!-- <div class="card-body"> -->
+        <form class="form-horizontal">
+  
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <label>तालुका </label>
+                <div>
+                  <ngx-select  [allowClear]="true" name="inputTaluka" (focus)="loadTaluka()" (select)="getSelectedTaluka($event)" [items]="talukaList" placeholder="तालुका शोधा किंवा निवडा">
+                  </ngx-select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <label>गावाचे नाव </label>
+                <div>
+                  <ngx-select  [allowClear]="true" name="inputVillage" (focus)="loadVillages()" (select)="getSelectedVillage($event)" [items]="villageList" placeholder="गावाचे नाव शोधा किंवा निवडा">
+                  </ngx-select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <label>कामाचा तपशील </label>
+                <div>
+                  <ngx-select [allowClear]="true" name="inputWorkParticulars" (focus)="loadWorkParticulars()" (select)="getSelectedWorkP($event)" [items]="workList" placeholder="कामाचा तपशील शोधा किंवा निवडा">
+                  </ngx-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <label>आदेश क्रमांक </label>
+                <div>
+                  <input name="inputLedgerNo" type="text" placeholder="आदेश क्रमांक " value="{{ ledgerNumber }}" class="form-control form-control-success" readonly>
+              </div>
+  
+              </div>
+              <div class="col-sm-4">
+                <label>ठराव क्रमांक </label>
+                <div>
+                  <input name="inputOrderNo" type="text" placeholder="ठराव क्रमांक" value="{{ orderNumber }}" class="form-control form-control-success" readonly>
+              </div>
+  
+              </div>
+              <div class="col-sm-4">
+                <label>ठराव दिनांक </label>
+                <div>
+                  <input type="text" name="inputGrantDate" placeholder="ठराव दिनांक" value="{{ grantDate }}" class="form-control" readonly>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+  
+          <div class="line"></div>
+          <!-- <div class="col-sm-12">
+              <div class="row">
+                  <div class="col-sm-3">
+                <label>Grant Amount </label>
+                  <div>
+                    <input name="inputGrantAmt" type="text" placeholder="Grant Amount " class="form-control form-control-success">
+                  </div>
+                  </div>
+              </div>
+          </div>      -->
+
+        
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Installment No</th>
+                <th scope="col">Installment Date</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td><input value="Date" readonly></td>
+                <td>Thornton</td>
+                
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                
+              </tr>
+            </tbody>
+          </table>
+
+
+          <br>
+          <div class="col-sm-12">
+              <div class="row">
+                <!-- <div class="col-sm-3">
+                  <label>InstallmentNo 1</label>
+                  <div>
+                    <input name="inputInstallmentNo1" type="text" value="{{ install1Amount }}" placeholder="InstallmentNo 1 " class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div> -->
+                <!-- <div class="col-sm-3">
+                  <label>Installment 1 Date </label>
+                  <div>
+                    <input name="inputInstallment1Date" type="text" value="{{ install1Date }}" placeholder="InstallmentNo 1 " placeholder="Installment-1 Date" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div> -->
+                <div class="col-sm-3">
+                  <label>Yearly Installment </label>
+                  <div>
+                    <input type="text" name="inputYearlyInstallment" value="{{ yerlyInstallment }}" placeholder="Yearly Installment"  class="form-control form-control-success" readonly>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Loan Balance </label>
+                    <div>
+                      <input type="text" name="inputLoanBalance" value="{{ loanBalance }}"  class="form-control form-control-success" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                  <label>Total</label>
+                  <div>
+                    <input type="text" name="inputTotal"  value="{{ total }}" placeholder="Total "  class="form-control form-control-success" readonly>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                <label>Grant Amount </label>
+                  <div>
+                    <input name="inputGrantAmt" type="text" value="{{ dueDate }}" placeholder="Grant Amount " class="form-control form-control-success" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <br/>
+  
+          <!-- <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label>InstallmentNo 2</label>
+                  <div>
+                    <input name="inputInstallmentNo2" type="text" value="{{ install2Amount }}" placeholder="InstallmentNo 2 " class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-3">
+                  <label>Installment 2 Date </label>
+                  <div>
+                    <input name="inputInstallment2Date" type="text" value="{{ install2Date }}" placeholder="Installment-2 Date" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-3">
+                  <label>Last Due Date</label>
+                  <div>
+                    <input type="text" name="inputLastDueDate" value="{{ lastDueDate }}" placeholder="Last Due Date"  class="form-control form-control-success" readonly>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Total</label>
+                    <div>
+                      <input type="text" name="inputTotal"  value="{{ total }}" placeholder="Total "  class="form-control form-control-success" readonly>
+                    </div>
+                  </div>
+              </div>
+            </div> -->
+          <br/>
+  
+          <!-- <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label>InstallmentNo 3</label>
+                  <div>
+                    <input name="inputInstallmentNo3" type="text" value="{{ install3Amount }}" placeholder="InstallmentNo 3 " class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-3">
+                  <label>Installment 3 Date </label>
+                  <div>
+                    <input name="inputInstallment3Date" type="text" value="{{ install3Date }}" placeholder="Installment-3 Date" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-3">
+                    <label>Grant Amount </label>
+                      <div>
+                        <input name="inputGrantAmt" type="text" value="{{ dueDate }}" placeholder="Grant Amount " class="form-control form-control-success" readonly>
+                      </div>
+                      </div>
+              </div>
+            </div> -->
+          <br/>
+  
+          <div class="line"></div>
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Installment No </label>
+                  <div>
+                    <input name="inputInstallmentNo" type="text" [(ngModel)]="model.installNo" #installNo="ngModel" placeholder="InstallmentNo " class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                </div>
+                </div>
+                <br />
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Due Date</label>
+                  <div>
+                    <input name="inputDueDate" type="text" [(ngModel)]="model.dueDate" #dueDate="ngModel" placeholder="Due Date" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                  <label>Receipt Number </label>
+                  <div>
+                    <input name="inputReceiptNumber" type="text" [(ngModel)]="model.receiptNo" #receiptNo="ngModel" placeholder="Receipt Number" class="form-control form-control-success">
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                    <label>Receipt Date </label>
+                      <div>
+                        <input name="inputReceiptDate" type="text" [(ngModel)]="model.receiptDate" #receiptDate="ngModel" (focusout)="receiptDateFocusLost()" placeholder="Receipt Date " class="form-control form-control-success">
+                      </div>
+                      </div>
+              </div>
+            </div>
+          <br/>
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Receipt Amount</label>
+                  <div>
+                    <input name="inputReceiptAmount" type="text" [(ngModel)]="model.receiptAmount" #village="ngModel" (focusout)="receiptAmountFocusLost()" placeholder="Receipt Amount" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                  <label>Interest Amount</label>
+                  <div>
+                    <input name="inputInterestAmount" type="text" [(ngModel)]="model.interestAmount" #interestAmount="ngModel" (focusout)="interestAmountFocusLost()" placeholder="Interest Amount" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+               
+            </div>
+            </div>
+          <br/>
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>DD Number</label>
+                  <div>
+                    <input name="inputDDNumber" type="text" [(ngModel)]="model.ddNo" #ddNo="ngModel" placeholder="DD Number" class="form-control form-control-success">
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                  <label>DD Amount </label>
+                  <div>
+                    <input name="inputDDAmount" type="text" [(ngModel)]="model.ddAmount" #ddAmount="ngModel" (focusout)="ddAmountFocusLost()" placeholder="DD Amount" class="form-control form-control-success">
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                    <label>DD Date </label>
+                      <div>
+                        <input name="inputDDDate" type="text" [(ngModel)]="model.ddDate" #ddDate="ngModel" placeholder="DD Date " class="form-control form-control-success">
+                      </div>
+                      </div>
+              </div>
+            </div>
+          <br/>
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Bank</label>
+                  <div>
+                    <input name="inputBank" type="text" [(ngModel)]="model.bankName" #bankName="ngModel" placeholder="Bank Name" class="form-control form-control-success">
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                  <label>DD Balance</label>
+                  <div>
+                    <input name="inputDDBalance" type="text" [(ngModel)]="model.ddBalance" #ddBalance="ngModel" placeholder="DD Balance" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+               
+            </div>
+            </div>
+          <br/>
+          
+          <br/>
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Current Interest</label>
+                  <div>
+                    <input name="inputCurrentInterest" type="text" [(ngModel)]="model.currentInterest" #currentInterest="ngModel" placeholder="Current Interest" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                  <label>Installment Balance </label>
+                  <div>
+                    <input name="inputInstallmentBalance" type="text" [(ngModel)]="model.installmentBalance" #installmentBalance="ngModel" placeholder="Installment Balance" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                    <label>Interest Balance</label>
+                      <div>
+                        <input name="inputInterestBalance" type="text" [(ngModel)]="model.interestBalance" #interestBalance="ngModel" placeholder="Interest Balance " class="form-control form-control-success" readonly>
+                      </div>
+                      </div>
+              </div>
+            </div>
+          <br/>
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Penaulty</label>
+                  <div>
+                    <input name="inputPenaulty" type="text" [(ngModel)]="model.duePenaultInterest" #duePenaultInterest="ngModel" placeholder="Penaulty" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+                <div class="col-sm-4">
+                  <label>Total Balance</label>
+                  <div>
+                    <input name="inputTotalBalance" type="text" [(ngModel)]="model.totalBalance" #totalBalance="ngModel" placeholder="Total Balance" class="form-control form-control-success" readonly>
+                  </div>
+    
+                </div>
+               
+            </div>
+            </div>
+          <br/>
+  
+  
+          <div class="form-group row">
+            <div class="col-sm-4 offset-sm-2">
+              <button type="submit" class="btn btn-primary">जतन करा </button> &nbsp;
+              <button type="submit" class="btn btn-secondary">रद्द करा</button>
+  
+            </div>
+          </div>
+  
+        </form>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </section>

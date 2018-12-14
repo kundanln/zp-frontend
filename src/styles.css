@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+
+.text-primary {
+    color: #77229e !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #33b35a;
+    border-color: #33b35a;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #33b35a;
+    border-color: #33b35a;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #33b35a;
+    border-color: #33b35a;
+}
+
+.ngx-select__placeholder[_ngcontent-c2] {
+    float: left;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid whitesmoke;
+    background:#b7f8cb;
+    border-radius: 4px 4px 0 0;
+}
+.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus {
+  color: #444;
+  background:#33b35a;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid #f1f1f1;
+}
+
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #e6fde9;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+.nav.navbar a.menu-btn {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-color: #ff9966;
+    color: #fff;
+    text-align: center;
+    padding: 0 !important;
+    font: normal normal normal 14px/3 FontAwesome;
+}
+body{
+    background-image: url(/src/assets/login/images/signup-bg1.jpg);
+}

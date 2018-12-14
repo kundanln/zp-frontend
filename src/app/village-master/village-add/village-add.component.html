@@ -1,0 +1,95 @@
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder">
+ 
+    <ul class="breadcrumb">
+      
+        <a id="toggle-btn" href="#" class="menu-btn">
+          <i class="icon-bars"> </i></a>
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Village <i class="fa fa-edit"></i> </li>
+    </ul>
+ 
+</div>
+<section class="forms">
+  <div class="container-fluid">
+    <!-- Page Header-->
+    <!-- <header>
+      <h3 class="h2 display">Forms </h3>
+    </header> -->
+    <div class="col-lg-12">
+      <!-- <div class="card"> -->
+        <!-- <div class="card-header d-flex align-items-center">
+          
+          <h4>Edit Village</h4>
+        </div> -->
+        <!-- <div class="card-body"> -->
+          <form style="margin-top: 92px;" class="form-horizontal"  #modelForm="ngForm" (ngSubmit)="addUpdateVillage()" >
+             
+            <!-- <div class="form-group row">
+              <label class="col-sm-2">तालुका </label>
+              <div class="col-sm-4">
+                <ngx-select [allowClear]="true" name="ddlTaluka" [items]="talukaList" [(ngModel)]="model.taluka" #taluka="ngModel" 
+                  (focus)="loadTaluka($event)" placeholder="तालुका शोधा किंवा निवडा">
+                </ngx-select>
+              </div>
+              <label class="col-sm-2">गावाचे नाव </label>
+              <div class="col-sm-4">
+                <ngx-select [allowClear]="true" name="ddlVillage" [items]="villageList" [(ngModel)]="model.villageName" #villageName="ngModel" 
+                (focus)="loadVillages($event)" placeholder="गावाचे नाव शोधा किंवा निवडा">
+                </ngx-select>
+              </div>
+            </div> -->
+
+
+
+            <!-- <div class="line"></div> -->
+            <div class="col-sm-12">
+              <div class="form-group row">
+                  <div class="col-sm-3"></div>
+                <label class="col-sm-2">जिल्हा </label>
+                <div class="col-sm-4">
+                  <input id="inputDistrict" name="district" type="text" [(ngModel)]="model.district" #district="ngModel" placeholder="जिल्हा " class="form-control form-control-success" #district="ngModel" required>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+              <label class="col-sm-2">तालुका</label>
+              <div class="col-sm-4">
+                <input id="inputTaluka" name="taluka" type="text" [(ngModel)]="model.taluka" #taluka="ngModel" placeholder="तालुका" class="form-control form-control-success" #taluka="ngModel" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+              <label class="col-sm-2">गावाचे नाव </label>
+              <div class="col-sm-4">
+                <input id="inputVillage" name="village" type="text"  [(ngModel)]="model.villageName" #villageName="ngModel" placeholder="गावाचे नाव " class="form-control form-control-warning"  #village="ngModel" required>
+              </div>
+            </div>
+          </div>
+            <br><br>
+            <div class="form-group row">
+              <div class="col-sm-4 offset-sm-4">
+                
+                
+                
+                <!-- <button title="{{ button == 'Update' ? 'दुरुस्त करा' : 'जतन करा' }}" type="submit" class="btn btn-primary">जतन करा</button> &nbsp;
+                <button type="submit" class="btn btn-secondary">रद्द  करा</button>  -->
+                 <button title="{{ button == 'दुरुस्ती करा' ? 'दुरुस्ती करा ' : 'जतन करा' }}" type="submit" class="btn btn-primary">{{button}}</button> &nbsp;
+                &nbsp; &nbsp;
+                <button title="{{ button == 'दुरुस्ती करा' ? 'रद्द  करा' : 'क्लीन करा' }}" type="{{ button == 'Update' ? 'button' : 'reset' }}" (click)="Cancel()"
+                class="btn btn-secondary">{{ button == 'दुरुस्ती करा' ? 'रद्द  करा' : 'क्लीन करा' }}</button>
+                
+              </div>
+            </div>
+           
+          </form>
+        <!-- </div> -->
+      <!-- </div> -->
+    </div>
+  </div>
+</section>

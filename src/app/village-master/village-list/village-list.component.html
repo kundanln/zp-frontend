@@ -1,0 +1,40 @@
+
+
+ <!--box-header -->
+ <div class="box-header with-border">
+    &nbsp;&nbsp;<i class="fa fa-book" >&nbsp;&nbsp;<span><h5 class="box-title"> Village Master</h5></span></i>
+ 
+  <div class="box-tools pull-right">
+    <span>
+        <a [routerLink]="['/village-add']">
+            <i class="fa fa-fw fa-plus"></i> Add New Record &nbsp;
+        </a>
+    </span>
+  </div>
+</div>
+
+<div class="box-body">
+    <div class="row">
+      <div class="col-md-12">
+          <div style="height: 100%; box-sizing: border-box;">
+<ag-grid-angular 
+    style="width: 100%; height: 515px;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    [context]="context"
+            [frameworkComponents]="frameworkComponents"
+            [rowSelection]="rowSelection"
+            enableColResize
+            rowHeight="40"
+            [pagination]="true"
+            [paginationPageSize]="10"
+            [animateRows]="true"
+            [enableSorting]="true"
+            [enableFilter]="false"
+            [floatingFilter]="true">
+</ag-grid-angular>
+            </div>
+        </div>
+     </div>
+</div>
