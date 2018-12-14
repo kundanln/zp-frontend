@@ -8,7 +8,7 @@ export class ZPService {
     constructor(private _http: HttpClient) { }
 
     //baseUrl: string = "http://localhost:8080/ZP_Backend/rest/zp";
-    baseUrl: string = "https://zp-back1.herokuapp.com/rest/zp";
+    baseUrl: string = "https://zp-bkd.herokuapp.com/rest/zp";
 
     create(record: any) {
 
