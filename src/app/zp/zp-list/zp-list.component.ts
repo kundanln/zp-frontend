@@ -56,7 +56,7 @@ export class ZpListComponent implements OnInit {
   public loadAllRecords() {
     this.zpService.getAll().subscribe((data: ZpModel[] = []) => {
       this.rowData = data;
-      console.log("All Records", this.rowData);
+      //console.log("All Records", this.rowData);
     },
     error=>{
         throw error;        

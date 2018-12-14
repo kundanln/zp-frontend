@@ -19,12 +19,12 @@ export class LoanPaymentAddComponent implements OnInit {
     public talukaList: Array<string> = [];
     public villageList: Array<string> = [];
     public workList: Array<string> = [];
-    public installNoList : Array<number> = [];
+    public installNoList: Array<number> = [];
     loanPaymentDatalist: LoanPaymentModel[];
     loanPaymentModel: LoanPaymentModel;
     zpDataList: ZpModel[];
     zpModel: ZpModel;
-    selectedTaluka : string;
+    selectedTaluka: string;
     selectedVillage: string;
     selectedWorkP: string;
     grantDate: string;
@@ -50,39 +50,38 @@ export class LoanPaymentAddComponent implements OnInit {
         amount: null
     };
 
-    datePickerConfigWithMin : Partial<BsDatepickerConfig>;
-    datePickerConfigWithoutMin : Partial<BsDatepickerConfig>;
-    
-    constructor(private router: Router, private route: ActivatedRoute, private villageService: VillageService, private zpService: ZPService , private loanPaymentService : LoanPaymentService) {
+    datePickerConfigWithMin: Partial<BsDatepickerConfig>;
+    datePickerConfigWithoutMin: Partial<BsDatepickerConfig>;
+
+    constructor(private router: Router, private route: ActivatedRoute, private villageService: VillageService, private zpService: ZPService, private loanPaymentService: LoanPaymentService) {
         this.selectControl.valueChanges.subscribe(value => console.log(value));
-        if(this.route.snapshot.queryParamMap.has('updateId'))
-        {   
-            this.updateId =+this.route.snapshot.queryParamMap.get('updateId');
+        if (this.route.snapshot.queryParamMap.has('updateId')) {
+            this.updateId = +this.route.snapshot.queryParamMap.get('updateId');
             this.getRecordByID(this.updateId);
-        
-        }  
+
+        }
 
 
-        this.datePickerConfigWithMin = Object.assign({ },
-        
-            { 
-               // containerClass : 'theme-dark-blue',
-                showWeekNumbers : false,
-                dateInputFormat : 'YYYY/MM/DD',
-                minDate : new Date()
+        this.datePickerConfigWithMin = Object.assign({},
+
+            {
+                // containerClass : 'theme-dark-blue',
+                showWeekNumbers: false,
+                dateInputFormat: 'YYYY/MM/DD',
+                minDate: new Date()
             }
         )
-        
-        this.datePickerConfigWithoutMin = Object.assign({ },
-        
-            { 
+
+        this.datePickerConfigWithoutMin = Object.assign({},
+
+            {
                 //containerClass : 'theme-dark-blue',
-                showWeekNumbers : false,
-                dateInputFormat : 'YYYY/MM/DD',
-                minDate : new Date()
+                showWeekNumbers: false,
+                dateInputFormat: 'YYYY/MM/DD',
+                minDate: new Date()
             }
         )
-     }
+    }
 
     ngOnInit() {
         this.loadVillageModel();
@@ -142,13 +141,13 @@ export class LoanPaymentAddComponent implements OnInit {
             }
         });
 
-    } 
+    }
     public loadinstallNumber() {
         this.loanPaymentDatalist.forEach(model => {
-        if(this.zpModel.villageName == this.selectedVillage && this.zpModel.workParticulars == this.selectedWorkP && this.model.zpId == this.zpModel.id){
-            this.installNoList.push(model.installmentNumber);
-        }
-    });
+            if (this.zpModel.villageName == this.selectedVillage && this.zpModel.workParticulars == this.selectedWorkP && this.model.zpId == this.zpModel.id) {
+                this.installNoList.push(model.installmentNumber);
+            }
+        });
     }
     public workPFocusLost() {
         if (this.button == "Add") {
@@ -159,24 +158,13 @@ export class LoanPaymentAddComponent implements OnInit {
     }
 
     public loadZPRecordsById(id: number) {
-        //  console.log("kundan");
-        //  this.zpDataList.forEach(zpmodel =>{
-        //     if(zpmodel.id == id){
-        //         this.orderNumber = zpmodel.orderNumber;
-        //         this.ledgerNumber = zpmodel.ledgerNo;
-        //         this.grantDate = zpmodel.sanctionDate;
-        //         this.loanAmount = zpmodel.loanAmount;
-        //         console.log("Updated:",this.orderNumber);
-        //     }
-        //   });
+
         this.zpService.getAll().subscribe((data: ZpModel[] = []) => {
 
             this.zpDataList = data;
 
             this.zpDataList.forEach(dataModel => {
-                //console.log("All of record",dataModel.taluka);
                 if (dataModel.id == id) {
-                    console.log("All of record", dataModel.taluka);
                     this.selectedTaluka = dataModel.taluka;
                     this.selectedVillage = dataModel.villageName
                     this.selectedWorkP = dataModel.workParticulars
@@ -192,23 +180,23 @@ export class LoanPaymentAddComponent implements OnInit {
         });
     }
 
-   
+
 
     getRecordByID(id: number) {
         // this.talukaList = [];
         this.loanPaymentService.getAll().subscribe((data: LoanPaymentModel[] = []) => {
             this.loanPaymentDatalist = data;
-            console.log("loanPaymentDatalist", this.loanPaymentDatalist);
+            //console.log("loanPaymentDatalist", this.loanPaymentDatalist);
             this.loanPaymentDatalist.forEach(loanPaymentModel => {
 
-                if (loanPaymentModel.zpId == id) {
+                if (loanPaymentModel.id == id) {
 
                     this.button = 'Update';
                     this.model = loanPaymentModel;
-                    console.log(this.model);
+                    //console.log(this.model);
                 }
             });
-            this.loadZPRecordsById(id);
+            this.loadZPRecordsById(this.model.zpId);
 
         },
             error => {
@@ -234,15 +222,14 @@ export class LoanPaymentAddComponent implements OnInit {
         if (this.button == 'Add') {
             this.loanPaymentService.create(this.model).subscribe(() => {
 
-                //      this.dropdownList=[];
                 alert('Record Added Successfully');
                 this.router.navigate(['./loan-payment-list', { 'lastInsert': this.model.id }]);
-                //this.loadAllEnquiry();
+                
             },
                 error => {
                     throw error;
                 });
-            console.log('form data to add in databse', this.model);
+            //console.log('form data to add in databse', this.model);
 
         } else if (this.button == 'Update') {
             this.zpService.update(this.model).subscribe(() => {
@@ -250,7 +237,7 @@ export class LoanPaymentAddComponent implements OnInit {
                 alert('Record updated Successfully');
                 this.button = 'Update';
                 this.router.navigate(['./loan-payment-list', { 'lastUpdate': this.model.id }]);
-                console.log('form data to update in database', this.model);
+                //console.log('form data to update in database', this.model);
             },
                 error => {
                     throw error;

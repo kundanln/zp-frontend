@@ -27,8 +27,13 @@ export class EditButtonComponent implements ICellRendererAngularComp {
 
     public invokeParentMethod() {
       console.log("ButtonCompo1 ",this.params.data);
-      this.params.context.componentParent.editmethodFromParent(`${this.params.data.id}`)
-     
+      if(this.params.data instanceof Array){
+          console.log("Array");
+        this.params.context.componentParent.editmethodFromParent(`${this.params.data[0]}`)
+      } else {
+          console.log("Not Array");
+           this.params.context.componentParent.editmethodFromParent(`${this.params.data.id}`)
+      }
     }
 
     refresh(): boolean {

@@ -26,13 +26,13 @@ export class LoanPaymentListComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute,private zpSevice: ZPService, private loanPaymentService : LoanPaymentService ) { 
     this.columnDefs=[{headerName: " ", cellRenderer: "EditButton",width: 80},
     
-    {headerName:"तालुका",field:'0',filter:'agTextColumnFilter', width: 270},
-    {headerName:"गावाचे नाव",field:'1',filter:'agTextColumnFilter', width: 270},
-    {headerName:"कामाचा तपशील",field:'2',filter:'agTextColumnFilter', width: 270},
-    // {headerName:"ठराव दिनांक",field:'grantDate',filter:'agTextColumnFilter'},
+    {headerName:"तालुका",field:'1',filter:'agTextColumnFilter', width: 270},
+    {headerName:"गावाचे नाव",field:'2',filter:'agTextColumnFilter', width: 270},
+    {headerName:"कामाचा तपशील",field:'3',filter:'agTextColumnFilter', width: 270},
+    //{headerName:"ठराव दिनांक",field:'grantDate',filter:'agTextColumnFilter'},
     // {headerName:"ठराव क्रमांक",field:'orderNumber',filter:'agTextColumnFilter'},
     // {headerName:"आदेश क्रमांक",field:'ledgerNo',filter:'agTextColumnFilter'},
-    {headerName:"कर्जाची मंजूर रक्कम",field:'3',filter:'agTextColumnFilter', width: 270}
+    {headerName:"कर्जाची मंजूर रक्कम",field:'4',filter:'agTextColumnFilter', width: 270}
     ];
     
     this.context = { componentParent: this };

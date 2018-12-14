@@ -133,21 +133,22 @@ export class ZpAddComponent implements OnInit {
   addUpdateZPMaster() {
   this.model.sanctionDate = this.datepipe.transform(this.model.sanctionDate, 'yyyy-MM-dd');
 
-   this.villageModelList.forEach(villagemodel =>{
-     if(villagemodel.taluka == this.model.taluka && villagemodel.villageName == this.model.villageName){
-      // this.model.villageModel = villagemodel;
-       this.model.villageId = villagemodel.id;
-       
-     }
-   });
     if(this.button=='Add'){
+      
+   this.villageModelList.forEach(villagemodel =>{
+    if(villagemodel.taluka == this.model.taluka && villagemodel.villageName == this.model.villageName){
+     // this.model.villageModel = villagemodel;
+      this.model.villageId = villagemodel.id;
+      
+    }
+  });
     this.zpService.create(this.model).subscribe(() => {
-      console.log('form data to add in databse', this.model);
+      
           //      this.dropdownList=[];
                 this.modelFormref.reset();
                 alert('Record Added Successfully');
                 this.router.navigate(['./zp-list',{ 'lastInsert' : this.model.id }]);
-                
+                console.log('form data to zp add in databse', this.model);
             },
             error=>{
                 throw error;        
