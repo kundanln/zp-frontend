@@ -8,7 +8,7 @@ export class VillageService {
     constructor(private _http: HttpClient) { }
 
     //baseUrl: string = "http://localhost:8080/ZP_Backend/rest/village";
-    baseUrl: string = "https://zp-back.herokuapp.com/rest/village";
+    baseUrl: string = "https://zp-back1.herokuapp.com/rest/village";
 
     create(record: any) {
 

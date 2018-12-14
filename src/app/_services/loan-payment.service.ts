@@ -9,8 +9,8 @@ export class LoanPaymentService {
     constructor(private _http: HttpClient) { }
 
     //baseUrl: string = "http://localhost:8080/ZP_Backend/rest/loan-details";
-    baseUrl: string = "https://zp-back.herokuapp.com/rest/loan-details";
-
+    baseUrl: string = "https://zp-back1.herokuapp.com/rest/loan-details";
+    
     create(record: any) {
 
        // console.log("record ",JSON.stringify(record));
