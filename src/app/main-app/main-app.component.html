@@ -311,7 +311,7 @@
                    <label>तालुका </label>
                    <ngx-select  name="inputTaluka"
                                [(ngModel)]="selectedTaluka" 
-                               (focus)="loadTaluka();reset()"  (select)="getSelectedTaluka($event)" 
+                               (focus)="loadTaluka()"  (select)="getSelectedTaluka($event)" 
                                [items]="talukaList" placeholder="तालुका शोधा किंवा निवडा">
                   </ngx-select>
             </div>
