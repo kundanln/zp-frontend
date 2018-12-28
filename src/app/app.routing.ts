@@ -10,28 +10,34 @@ import { MainAppComponent } from './main-app/main-app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ReceiptEntryAddComponent } from './receipt-entry/receipt-entry-add/receipt-entry-add.component';
 import { LoanPaymentListComponent } from './loan-payment/loan-payment-list/loan-payment-list.component';
-import { LoanDetailsComponent } from './loan-details/loan-details.component';
+import { LoanIssueDetailComponent } from './report/loan-issue-detail/loan-issue-detail.component';
+import { LoanBalanceComponent } from './report/loan-balance/loan-balance.component';
+import { MonthRecoveryComponent } from './report/month-recovery/month-recovery.component';
+import { YearRecoveryComponent } from './report/year-recovery/year-recovery.component';
+import { ReportsComponent } from './report/reports/reports.component';
+import { LoanBalanceOndateComponent } from './report/loan-balance-ondate/loan-balance-ondate.component';
+//import { LoanDetailsComponent } from './loan-details/loan-details.component';
 
 const appRoutes : Routes = [
     {
         path: '',
-        canActivate:[AuthGuard],
+       // canActivate:[AuthGuard],
         component: MainAppComponent,
         children:[
 
             {
                 path: 'village-add',
-                canActivate:[AuthGuard],
+               // canActivate:[AuthGuard],
                 component: VillageAddComponent
                 
             },
             {
                 path: 'village-list',
                 component: VillageListComponent
-                },
+            },
             {
                 path: 'zp-add',
-                canActivate:[AuthGuard],
+               // canActivate:[AuthGuard],
                 component: ZpAddComponent
             },
 	       {
@@ -40,24 +46,56 @@ const appRoutes : Routes = [
     	    },
             {
                 path: 'loan-payment-add',
-                canActivate:[AuthGuard],
+                //canActivate:[AuthGuard],
                 component: LoanPaymentAddComponent
             },
             {
                 path: 'loan-payment-list',
-                canActivate:[AuthGuard],
+               // canActivate:[AuthGuard],
                 component: LoanPaymentListComponent
             },
             {
                 path: 'receipt-entry-add',
-                canActivate:[AuthGuard],
+              //  canActivate:[AuthGuard],
                 component: ReceiptEntryAddComponent
             },
-            // {
-            //     path: 'app-loan-details',
-            //     canActivate:[AuthGuard],
-            //     component: LoanDetailsComponent
-            // },
+            //Report
+            {
+                path: 'loan-issue-detail',
+               // canActivate:[AuthGuard],
+                component: LoanIssueDetailComponent
+            },
+            
+            {
+                path: 'month-report',
+               // canActivate:[AuthGuard],
+                component: MonthRecoveryComponent
+            },
+            {
+                path: 'year-report',
+               // canActivate:[AuthGuard],
+                component: YearRecoveryComponent
+            },
+            {
+                path: 'loan-balance',
+               // canActivate:[AuthGuard],
+                component: LoanBalanceComponent
+            },
+            {
+                path: 'reports',
+               // canActivate:[AuthGuard],
+                component: ReportsComponent
+            },
+            {
+                path: 'loan-balance-date',
+               // canActivate:[AuthGuard],
+                component: LoanBalanceOndateComponent
+            },
+            {
+                path: 'village-wise',
+               // canActivate:[AuthGuard],
+                component: LoanBalanceOndateComponent
+            },
         ]
         
     },

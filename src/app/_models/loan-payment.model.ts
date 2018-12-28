@@ -4,7 +4,7 @@ export class LoanPaymentModel{
     id ? : number;
 	zpId : number;
 	installmentNumber : number;
-	grantDate : Date;
+	installmentDate : Date;
 	receiptNo : number;
 	chequeNo : number;
 	bankName : string;

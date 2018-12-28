@@ -73,7 +73,9 @@ export class VillageAddComponent implements OnInit {
         }
       },
         error=>{
-          throw error;
+           
+            throw error;
+          
       });
     
     
@@ -107,6 +109,7 @@ export class VillageAddComponent implements OnInit {
              this.loadAllRecords();
           },
           error=>{
+            alert("village master Record not Added");
               throw error;        
           });
 
@@ -120,6 +123,7 @@ export class VillageAddComponent implements OnInit {
           console.log('form data to update in database', this.model);
       },
       error=>{
+        alert("village master Record not Updated");
           throw error;        
       });    
 

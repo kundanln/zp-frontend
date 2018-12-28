@@ -486,10 +486,11 @@ nav.navbar a.menu-btn:hover {
 
 .side-navbar li ul.collapse a {
   border-left: 2px solid #33b35a;
+  background-color:#abf1e9;
 }
 
 .side-navbar li ul.collapse a:hover {
-  background: #121212;
+  background:#3cbbad;
 }
 
 .side-navbar .sidenav-header {
@@ -1304,8 +1305,8 @@ textarea.form-control {
 }
 
 /* select.form-control {
-  font-weight: 300; */
-}
+  font-weight: 300; 
+}*/
 
 select.form-control[size], select.form-control[multiple] {
   height: auto;

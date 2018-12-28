@@ -1,0 +1,39 @@
+<div class="breadcrumb-holder">
+
+  <ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">Report</a></li>
+    <li class="breadcrumb-item active">Loan issue Detail <i class="fa fa-edit"></i></li>
+  </ul>
+
+</div>
+  
+  <div class="container">
+    <div class="row">
+        
+            <!-- <input class="form-control" type="text" name="search" [(ngModel)]="filter">       -->
+        
+     
+    
+      <table class="table">
+        <thead>
+            <tr class="p-3 mb-2 bg-secondary text-white">
+               
+                <th (click)="sort('name')">Name
+                  <span class="glyphicon sort-icon" *ngIf="key =='name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th (click)="sort('genre')">Genre
+                  <span class="glyphicon sort-icon" *ngIf="key =='genre'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+              </tr>
+        </thead>
+        <tbody>
+            <!-- <tr *ngFor="let game of games"> -->
+                <tr *ngFor="let game of games | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };">
+              <td>{{game.name}}</td>
+              <td>{{game.genre}}</td>
+            </tr>
+          </tbody>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </table>
+    </div>
+  </div>

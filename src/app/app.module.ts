@@ -4,9 +4,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { SelectModule } from 'ng2-select';
 import { AppComponent } from './app.component';
-import { FormGroup, FormControl, Validators, FormBuilder, FormsModule }  from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { ReceiptEntryComponent } from './receipt-entry/receipt-entry.component';
-import { LoanDetailsComponent } from './loan-details/loan-details.component';
+//  import { LoanDetailsComponent } from './loan-details/loan-details.component';
 import { VillageAddComponent } from './village-master/village-add/village-add.component';
 import { VillageListComponent } from './village-master/village-list/village-list.component';
 import { routing } from './app.routing';
@@ -35,6 +35,18 @@ import { ReceiptEntryService } from './_services/receipt-entry.service';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { DatePipe } from '@angular/common';
 import { DateTimeFormatPipe } from './pipe/datePipe';
+import { LoginService } from './_services/login.service';
+import { LoanIssueDetailComponent } from './report/loan-issue-detail/loan-issue-detail.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter'; 
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { MonthRecoveryComponent } from './report/month-recovery/month-recovery.component';
+import { YearRecoveryComponent } from './report/year-recovery/year-recovery.component';
+import { LoanBalanceOndateComponent } from './report/loan-balance-ondate/loan-balance-ondate.component';
+import { LoanBalanceComponent } from './report/loan-balance/loan-balance.component';
+import { VillageWiseLoanBalanceComponent } from './report/village-wise-loan-balance/village-wise-loan-balance.component';
+import { ReportsComponent } from './report/reports/reports.component'; 
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -42,7 +54,7 @@ import { DateTimeFormatPipe } from './pipe/datePipe';
     VillageAddComponent,
     VillageListComponent,
     ReceiptEntryComponent,
-    LoanDetailsComponent,
+   // LoanDetailsComponent,
     VillageAddComponent,
     VillageListComponent,
     MainAppComponent,
@@ -57,30 +69,44 @@ import { DateTimeFormatPipe } from './pipe/datePipe';
     EditButtonComponent,
     DeleteButtonComponent,
     DateTimeFormatPipe,
-
-
-
+    LoanIssueDetailComponent,
+    MonthRecoveryComponent,
+    YearRecoveryComponent,
+    LoanBalanceOndateComponent,
+    LoanBalanceComponent,
+    VillageWiseLoanBalanceComponent,
+    ReportsComponent,
     
-  ],
+
+
+
+    ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
     SelectModule,
+    ReactiveFormsModule,
     TabsModule,
     routing ,
     NgxSelectModule,
     RouterModule,
     BsDatepickerModule.forRoot(),
     NgbModule.forRoot(),
+    Ng2SearchPipeModule, 
+    Ng2OrderModule,
+    NgxPaginationModule,
+    MatCardModule,
+    
     //ag-grid components
     AgGridModule.withComponents([
       VillageListComponent,
       ZpListComponent,
       LoanPaymentListComponent,
       EditButtonComponent,
-      DeleteButtonComponent
+      DeleteButtonComponent,
+      
     ])
   ],
   providers: [
@@ -89,7 +115,8 @@ import { DateTimeFormatPipe } from './pipe/datePipe';
     LoanPaymentService,
     ReceiptEntryService,
     AuthGuard,
-    DatePipe
+    DatePipe,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })

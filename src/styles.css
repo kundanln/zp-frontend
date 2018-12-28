@@ -73,3 +73,23 @@
 body{
     background-image: url(/src/assets/login/images/signup-bg1.jpg);
 }
+
+
+/* input spinner hide  */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+/*report Css*/
+.modal-header{
+    background: linear-gradient(to right, #43cea2 20%, #c3e483 100%);
+}
+.close{
+    color: black;
+}
+
+/*menu select Css*/

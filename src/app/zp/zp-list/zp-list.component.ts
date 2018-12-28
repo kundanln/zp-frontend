@@ -34,7 +34,7 @@ export class ZpListComponent implements OnInit {
       {headerName: 'ठराव क्रमांक', field: 'orderNumber', filter:'agTextColumnFilter', },
       {headerName: 'प्रारंभिक शिल्लक', field: 'openingBalance', filter:'agTextColumnFilter', },
       {headerName: 'वर्षास द्यावयाची रक्कम ', field: 'yearlyInstAmount', filter:'agTextColumnFilter', },
-      {headerName: 'एकूण मिळालेली रक्कम ', field: 'loanBalance', filter:'agTextColumnFilter', }
+      {headerName: 'एकूण मिळालेली रक्कम ', field: 'receivedAmount', filter:'agTextColumnFilter', }
       
   ];
   this.context = { componentParent: this };

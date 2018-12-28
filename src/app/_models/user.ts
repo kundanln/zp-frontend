@@ -1,10 +1,6 @@
-export class User {
+export class UserModel {
     id ?: number;
     userName: string;
     password: string;
-    address:string;
-    firstName: string;
-    lastName: string;
-    emailAddress: string;  
-    rePassword:string; 
+    district: string;
 }

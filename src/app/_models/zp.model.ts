@@ -16,6 +16,7 @@ export class ZpModel {
 	balance : number;
 	yearlyInstAmount : number;
 	totalAmountPaid : number;
+	receivedAmount : number;
 	loanBalance : number;
 	closingBalance : number;
 	closingFlag : boolean;

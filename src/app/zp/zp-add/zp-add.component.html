@@ -19,12 +19,12 @@
           <h4>Edit ZP</h4>
         </div> -->
         <!-- <div class="card-body"> -->
-          <form class="form-horizontal"   #modelForm="ngForm"  (ngSubmit)="addUpdateZPMaster()">
+          <form autocomplete="off" class="form-horizontal"   #modelForm="ngForm"  (ngSubmit)="addUpdateZPMaster()">
             
             <div class="form-group row">
               <label class="col-sm-2">तालुका </label>
               <div class="col-sm-4" *ngIf="button =='Add'">
-                     <ngx-select [allowClear]="true" name="ddlTaluka" [items]="talukaList" [(ngModel)]="model.taluka" #taluka="ngModel" 
+                     <ngx-select  name="ddlTaluka" [items]="talukaList" [(ngModel)]="model.taluka" #taluka="ngModel" 
                       (focus)="loadTaluka($event)" placeholder="--तालुका शोधा किंवा निवडा--">
                     </ngx-select> 
               </div>
@@ -34,7 +34,7 @@
 
               <label class="col-sm-2">गावाचे नाव </label>
               <div class="col-sm-4" *ngIf="button =='Add'">
-                   <ngx-select [allowClear]="true" name="ddlVillage" [items]="villageList" [(ngModel)]="model.villageName" #villageName="ngModel" 
+                   <ngx-select  name="ddlVillage" [items]="villageList" [(ngModel)]="model.villageName" #villageName="ngModel" 
                     (focus)="loadVillages($event)" placeholder="--गावाचे नाव शोधा किंवा निवडा--">
                     </ngx-select>            
               </div>
@@ -58,31 +58,31 @@
                 <div class="form-group row">
                   <label class="col-sm-2">आदेश क्रमांक </label>
                   <div class="col-sm-4">
-                    <input id="inputLedgerNumber" name="ledgerNumber" type="text" [(ngModel)]="model.ledgerNo" #ledgerNo="ngModel" placeholder="आदेश क्रमांक " class="form-control form-control-success">
+                    <input id="inputLedgerNumber" name="ledgerNumber" type="number" [(ngModel)]="model.ledgerNo" #ledgerNo="ngModel" placeholder="आदेश क्रमांक " class="form-control form-control-success">
                   </div>
                   <label class="col-sm-2">कर्जाची मंजूर रक्कम </label>
                   <div class="col-sm-4">
-                    <input id="inputLoanAmt" name="loanAmount" type="text" [(ngModel)]="model.loanAmount" #loanAmount="ngModel" (focusout)="calYrlyInstallmentAmt($event)" placeholder="कर्जाची मंजूर रक्कम " class="form-control form-control-success">
+                    <input id="inputLoanAmt" name="loanAmount" type="number" [(ngModel)]="model.loanAmount" #loanAmount="ngModel" (focusout)="calYrlyInstallmentAmt($event)" placeholder="कर्जाची मंजूर रक्कम " class="form-control form-control-success">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2">ठराव क्रमांक </label>
                   <div class="col-sm-4">
-                    <input id="inputOrderNo" name="orderNumber" type="text" [(ngModel)]="model.orderNumber" #orderNumber="ngModel" placeholder="ठराव क्रमांक" class="form-control form-control-success">
+                    <input id="inputOrderNo" name="orderNumber" type="number" [(ngModel)]="model.orderNumber" #orderNumber="ngModel" placeholder="ठराव क्रमांक" class="form-control form-control-success">
                   </div>
                   <label class="col-sm-2">प्रारंभिक शिल्लक </label>
                   <div class="col-sm-4">
-                    <input id="inputOpeningBal" name="openingBalance" type="text" [(ngModel)]="model.openingBalance" #openingBalance="ngModel" placeholder="प्रारंभिक शिल्लक " class="form-control form-control-success">
+                    <input id="inputOpeningBal" name="openingBalance" type="number" [(ngModel)]="model.openingBalance" #openingBalance="ngModel" placeholder="प्रारंभिक शिल्लक " class="form-control form-control-success">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2">वर्षास द्यावयाची रक्कम </label>
                   <div class="col-sm-4">
-                    <input id="inputYearlyInstallAmt" name="yearlyInstAmount" type="text" [(ngModel)]="model.yearlyInstAmount" #yearlyInstAmount="ngModel" placeholder="वर्षास द्यावयाची रक्कम " class="form-control form-control-warning" readonly>
+                    <input id="inputYearlyInstallAmt" name="yearlyInstAmount" type="number" [(ngModel)]="model.yearlyInstAmount" #yearlyInstAmount="ngModel" placeholder="वर्षास द्यावयाची रक्कम " class="form-control form-control-warning" readonly>
                   </div>
                   <label class="col-sm-2">एकूण मिळालेली रक्कम </label>
                   <div class="col-sm-4">
-                    <input id="inputLoanBal" name="loanBalance" type="text" [(ngModel)]="model.loanBalance" #loanBalance="ngModel" placeholder="एकूण मिळालेली रक्कम  " class="form-control form-control-success">
+                    <input id="inputReceivedAmount" name="receivedAmount" type="number" [(ngModel)]="model.receivedAmount" #receivedAmount="ngModel" placeholder="एकूण मिळालेली रक्कम  " class="form-control form-control-success">
                   </div>
                 </div>
                 <div class="form-group row">

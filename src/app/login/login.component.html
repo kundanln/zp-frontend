@@ -13,28 +13,45 @@
         <!-- <img src="/src/assets/login/images/signup-bg1.jpg"> -->
         <div class="container">
             <div class="signup-content">
-                <form method="POST" id="signup-form" class="signup-form">
+                <form autocomplete="nope" method="POST" id="signup-form" class="signup-form" (ngSubmit)="login()">
                     <h2 class="form-title">Login</h2>
-                    
-                    <!-- <div class="form-group">
-                            <ngx-select [allowClear]="true" [items]="items" placeholder="Select District">
-                                </ngx-select>
-                    </div> -->
+                    <label><strong>जिल्हा</strong></label>
+                     <div class="form-group">
+                             <!-- <ngx-select name="ddlDistrict" [allowClear]="true"  [items]="districtList"   
+                            (focus)="loadDistrict()"  placeholder="--जिल्हा शोधा किंवा निवडा--">
+                            </ngx-select>  -->
+                            
+                               <select  class="form-control" id="district" name="district" [(ngModel)]="model.district" style="
+                                          height: 55px; " required >
+                                       <!-- <option value="0" disabled selected>Select your option</option> -->
+                                        <option *ngFor="let dis of districtList" [value]="dis" >       
+                                                {{dis}}
+                                        </option>
+                              </select>   
+                            <!-- <select  class="form-control" id="district" name="name" [(ngModel)]="model.name" >
+                                    <option *ngFor="let dis of dyanamoList" [value]="dis.id">       
+                                             {{dis.name}}
+                                    </option>
+                                </select>  -->
+                         
+                    </div> 
                     
                     <div class="form-group">
-                        <input type="text"  #u1 class="form-input" name="name" id="name" placeholder="Your Name"/>
+                        <label><strong>Username</strong></label>
+                        <input type="text"  [(ngModel)]="model.username" class="form-input" name="name" id="name" placeholder="Username" autocomplete="nope" required/>
                     </div>
                     <div class="form-group">
-                        <input type="password" #p2 class="form-input" name="password" id="password" placeholder="Password"/>
+                        <label><strong>Password</strong></label>
+                        <input type="password" [(ngModel)]="model.password" class="form-input" name="password" id="password" placeholder="Password" autocomplete="new-password" required/>
                         <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                        <input type="checkbox"  name="agree-term" id="agree-term" class="agree-term" />
                         <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                     </div>
                     <div class="form-group">
                             <!-- <button (click)="check(u1.value, p2.value)">Login</button> -->
-                         <input type="submit"  (click)="check(u1.value, p2.value)" name="submit" id="submit" class="form-submit" value="Sign up"/> 
+                         <input type="submit"  name="submit" id="submit" class="form-submit" value="Sign up"/> 
                     </div>
                 </form>
                 <p class="loginhere">

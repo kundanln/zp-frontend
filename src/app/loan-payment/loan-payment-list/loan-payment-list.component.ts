@@ -32,7 +32,7 @@ export class LoanPaymentListComponent implements OnInit {
     //{headerName:"ठराव दिनांक",field:'grantDate',filter:'agTextColumnFilter'},
     // {headerName:"ठराव क्रमांक",field:'orderNumber',filter:'agTextColumnFilter'},
     // {headerName:"आदेश क्रमांक",field:'ledgerNo',filter:'agTextColumnFilter'},
-    {headerName:"कर्जाची मंजूर रक्कम",field:'4',filter:'agTextColumnFilter', width: 270}
+    {headerName:"कर्जाची शिल्लक रक्कम",field:'4',filter:'agNumberColumnFilter', width: 270}
     ];
     
     this.context = { componentParent: this };
@@ -52,7 +52,7 @@ export class LoanPaymentListComponent implements OnInit {
   public loadAllRecords() {
     this.loanPaymentService.getLoanDetailsRecordsByZpId().subscribe((data: any[] = []) => {
       this.rowData = data;
-      console.log("All Records", this.rowData);
+      //console.log("All Records", this.rowData);
     },
     error=>{
         throw error;        

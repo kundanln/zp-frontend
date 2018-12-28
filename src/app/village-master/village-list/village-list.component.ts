@@ -22,10 +22,10 @@ export class VillageListComponent implements OnInit {
 
   constructor( private router: Router, private route: ActivatedRoute,private villageService: VillageService) {
     this.columnDefs = [{ headerName: " ", cellRenderer: "EditButton",width: 80 },
-     { headerName: " ", cellRenderer: "DeleteButton",width: 80 },
-    {headerName: 'District', field: 'district', width: 327, filter:'agTextColumnFilter',},
-    {headerName: 'Taluka', field: 'taluka', width: 327, filter:'agTextColumnFilter', },
-    {headerName: 'Village Name', field: 'villageName', width: 327, filter:'agTextColumnFilter', }
+    //  { headerName: " ", cellRenderer: "DeleteButton",width: 80 },
+    {headerName: 'जिल्हा', field: 'district', width: 350, filter:'agTextColumnFilter',},
+    {headerName: 'तालुका', field: 'taluka', width: 350, filter:'agTextColumnFilter', },
+    {headerName: 'गावाचे नाव', field: 'villageName', width: 350, filter:'agTextColumnFilter', }
   ];
   this.context = { componentParent: this,componentParent1: this };
 

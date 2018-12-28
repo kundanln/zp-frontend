@@ -7,6 +7,10 @@ import { ZPService } from '../../_services/zp.service';
 import { ReceiptEntryService } from '../../_services/receipt-entry.service';
 import { ReceiptEntry } from '../../_models/receipt-entry.model';
 import { LoanPaymentModel } from '../../_models/loan-payment.model';
+import { DatePipe } from '@angular/common';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/public_api';
+import { parseDate, formatDate } from 'ngx-bootstrap/chronos/public_api';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-receipt-entry-add',
@@ -22,7 +26,9 @@ export class ReceiptEntryAddComponent implements OnInit {
 	public villageList: Array<string> = [];
 	public workList: Array<string> = [];
 	zpDataList: ZpModel[];
+	rcptEntryEZPIdList: ReceiptEntry[] = [];
 	zpModel: ZpModel;
+	installmentList: any[] = [];
 	selectedTaluka: string;
 	selectedVillage: string;
 	selectedWorkP: string;
@@ -55,7 +61,7 @@ export class ReceiptEntryAddComponent implements OnInit {
 	varInstallInerest: number;
 	pdFlag: boolean;
 	prevReceiptDate: Date;
-
+	zpmBalance: number;
 	model: ReceiptEntry = {
 		villageId: null,
 		zpId: null,
@@ -84,16 +90,39 @@ export class ReceiptEntryAddComponent implements OnInit {
 
 	};
 
-	constructor(private villageService: VillageService, private zpService: ZPService, private loanPaymentService: LoanPaymentService, private receiptEntryService: ReceiptEntryService) {
-		
+	datePickerConfigWithMin: Partial<BsDatepickerConfig>;
+	datePickerConfigWithoutMin: Partial<BsDatepickerConfig>;
+	constructor(private router: Router, private villageService: VillageService, private zpService: ZPService, public datepipe: DatePipe, private loanPaymentService: LoanPaymentService, private receiptEntryService: ReceiptEntryService) {
+
+		this.datePickerConfigWithMin = Object.assign({},
+
+            {
+                // containerClass : 'theme-dark-blue',
+                showWeekNumbers: false,
+                dateInputFormat: 'YYYY-MM-DD',
+                minDate: new Date()
+            }
+        )
+
+        this.datePickerConfigWithoutMin = Object.assign({},
+
+            {
+                //containerClass : 'theme-dark-blue',
+                showWeekNumbers: false,
+                dateInputFormat: 'YYYY-MM-DD',
+                minDate: new Date()
+            }
+        )
+
 	}
+
 
 	ngOnInit() {
 		this.loadVillageModel();
 		this.loadZPModel();
 		this.loadLaonDetailsModel();
 		this.loadReceiptEntryModel();
-		this.setValuesToAddRecord();
+		//this.setValuesToAddRecord();
 	}
 	public loadVillageModel() {
 		this.villageService.getAll().subscribe((data: VillageModel[] = []) => {
@@ -105,22 +134,18 @@ export class ReceiptEntryAddComponent implements OnInit {
 	public loadLaonDetailsModel() {
 		this.loanPaymentService.getAll().subscribe((data: LoanPaymentModel[] = []) => {
 			this.loanDetailsList = data;
-			console.log("All Records", this.loanDetailsList);
+			//console.log("All Records", this.loanDetailsList);
 		});
 	}
 
 	public loadReceiptEntryModel() {
 		this.receiptEntryService.getAll().subscribe((data: ReceiptEntry[] = []) => {
 			this.receiptEntryList = data;
-			console.log("All Records", this.receiptEntryList);
+			//console.log("receipt Entry List", this.receiptEntryList);
 		});
 	}
 
 	public loadTaluka() {
-		this.ledgerNumber = null;
-		this.grantDate = null;
-		this.orderNumber = null;
-		this.loanAmount = null;
 		this.dropdownList.forEach(talukaDataList => {
 			if (this.dropdownList && (!this.talukaList.includes(talukaDataList.taluka))) {
 				this.talukaList.push(talukaDataList.taluka);
@@ -128,7 +153,6 @@ export class ReceiptEntryAddComponent implements OnInit {
 				//console.log("taluka",this.talukaList);
 			}
 		});
-
 	}
 	public loadVillages() {
 		//console.log("Villages", this.dropdownList);
@@ -150,6 +174,17 @@ export class ReceiptEntryAddComponent implements OnInit {
 			if (this.zpDataList && zpModel.taluka == this.selectedTaluka && zpModel.villageName == this.selectedVillage && (!this.workList.includes(zpModel.workParticulars))) {
 				this.workList.push(zpModel.workParticulars);
 				this.workList.sort();
+			}
+		});//1st foreach
+		if (this.workList.length == 0) {
+            alert("Loan is not given to this village");
+            this.clearFeilds();
+        }
+	}
+
+	public setValuesOnWPFocusLost() {
+		this.zpDataList.forEach(zpModel => {
+			if (this.zpDataList && zpModel.taluka == this.selectedTaluka && zpModel.villageName == this.selectedVillage) {
 				if (zpModel.workParticulars === this.selectedWorkP) {
 					this.model.zpId = zpModel.id;
 					this.ledgerNumber = zpModel.ledgerNo;
@@ -157,36 +192,42 @@ export class ReceiptEntryAddComponent implements OnInit {
 					this.orderNumber = zpModel.orderNumber;
 					this.loanAmount = zpModel.loanAmount;
 					this.yerlyInstallment = zpModel.yearlyInstAmount;
-					this.totalAmtPaid = zpModel.totalAmountPaid;
+					this.total = zpModel.receivedAmount;//totalAmtPaid
+					this.zpmBalance = zpModel.balance;
 					if (zpModel.closingFlag == true) {
-						//
+						alert("Loan fully recovered hence account may be closed.");
 					}
 					if (zpModel.balance == 0 && zpModel.noOfInstallment != 0) {
 						this.lastDueDate = zpModel.lastDueDate;
 						this.loanBalance = zpModel.loanBalance;
+						this.varLoanBalance = zpModel.loanBalance;
 					}
-					this.receiptEntryList.forEach(receiptEntryDataList => {
-						if (this.receiptEntryList && (!(receiptEntryDataList.zpId == this.model.zpId))) {
-							this.dueFlag = true;
-							this.model.installNo++;
-							this.model.interestBalance = this.model.currentInterest;
-							this.model.installmentBalance = this.yerlyInstallment;
-							this.model.totalBalance = this.model.installmentBalance + this.model.interestBalance;
-						} else {
-							if (receiptEntryDataList.outstandingBalance == 0) {
-
-								// this.model.dueDate = this.model.dueDate.
+					this.setValuesToAddRecord();
+					this.loanPaymentService.getInstallmentdetails(this.model.zpId).subscribe((dataList: LoanPaymentModel[] = []) => {
+						this.installmentList = dataList;
+						this.installmentList.forEach(data => {
+							if (data.installmentNumber == 1) {
+								this.install1Amount = data.installmentAmount;
+								this.install1Date = data.installmentDate;
+							} else if (data.installmentNumber == 2) {
+								this.install2Amount = data.installmentAmount;
+								this.install2Date = data.installmentDate;
+							} else if (data.installmentNumber == 3) {
+								this.install3Amount = data.installmentAmount;
+								this.install3Date = data.installmentDate;
 							}
-
-							console.log("zp id", this.model.zpId);
-						}
-					});
+						});
+					},
+						error => {
+							throw error;
+						});
 
 				}
 
 			}
 		});//1st foreach
-	}//fun
+		//this.calTotalBalance();	 
+	}
 
 	public loadZPModel() {
 		this.zpService.getAll().subscribe((data: ZpModel[] = []) => {
@@ -198,55 +239,73 @@ export class ReceiptEntryAddComponent implements OnInit {
 
 	public getSelectedTaluka = (value: any) => this.selectedTaluka = value;
 	public getSelectedVillage = (value: any) => this.selectedVillage = value;
-	public getSelectedWorkP = (value: any) => this.selectedWorkP = value;
+	public getSelectedWorkP = (value: any) => {
+		this.selectedWorkP = value;
+		this.setValuesOnWPFocusLost();
+	}
 
-	setValuesToAddRecord(){
+	setValuesToAddRecord() {
 		this.dueFlag = false;
 		this.duePrevFlag = false;
 		this.dueNextFlag = false;
-		this.receiptEntryList.forEach(model =>{
-			if(model.zpId == this.model.zpId){
-				if(this.model.outstandingBalance == 0){
-					this.model.dueDate = new Date(model.dueDate.getDate + '365');
-					console.log("Due date.." , this.model.dueDate)
-					if(this.model.dueDate <= this.lastDueDate &&  this.varLoanBalance > 0){
-						this.dueNextFlag = true;
-					}else{
-						alert("All installments are completed");
-					}
-					this.incrementInstallmentNo();
-					this.model.installmentBalance = this.yerlyInstallment;
-					this.model.interestBalance = this.model.currentInterest;
-					this.model.totalBalance = this.model.installmentBalance + this.model.interestBalance;
-				} else {
-					this.model.installmentBalance  = model.paidInstallment;
-					this.model.interestBalance = model.totalInterest;
-					this.duePrevFlag = true;
-					this.model.installNo = model.installNo;
-					this.model.dueDate = model.ddDate;
-				}
-			}else{
-				this.dueFlag = true;
-				this.incrementInstallmentNo();
-				this.model.interestBalance = this.model.currentInterest;
-				this.model.installmentBalance = this.yerlyInstallment;
-				this.model.totalBalance = this.model.installmentBalance + this.model.interestBalance;
-				this.calDueDate();
+		var dueDate, lastDueDate;
+		this.receiptEntryList.forEach(model => {
+			if (model.zpId == this.model.zpId) {
+				this.rcptEntryEZPIdList.push(model);
 			}
 		});
+		this.rcptEntryEZPIdList.forEach((model, index, array) => {
+			if (index === (array.length - 1)) {
+				this.prevReceiptDate = model.receiptDate;
+				this.model.totalBalance = model.outstandingBalance;
+				if (this.rcptEntryEZPIdList.length != 0) {
+					if (model.outstandingBalance == 0) {
+						dueDate = new Date(model.dueDate);
+						this.model.dueDate = new Date(dueDate.getFullYear() + 1, dueDate.getMonth(), dueDate.getDate());
+						lastDueDate = new Date(this.lastDueDate);
+						if (this.model.dueDate <= lastDueDate && this.varLoanBalance > 0) {
+							this.dueNextFlag = true;
+						} else {
+							alert("All installments are completed");
+						}
+						this.incrementInstallmentNo();
+						this.model.installmentBalance = this.yerlyInstallment;
+						this.model.interestBalance = this.model.currentInterest;
+						this.model.totalBalance = this.model.installmentBalance + this.model.interestBalance;
+						console.log("Total Balance : ", this.model.totalBalance);
+					} else {
+						this.model.installmentBalance = model.paidInstallment;
+						this.model.interestBalance = model.totalInterest;
+						this.duePrevFlag = true;
+						this.model.installNo = model.installNo;
+						this.model.dueDate = model.dueDate;
+					}
+				} else {
+					this.dueFlag = true;
+					this.incrementInstallmentNo();
+					this.model.interestBalance = this.model.currentInterest;
+					this.model.installmentBalance = this.yerlyInstallment;
+					this.model.totalBalance = this.model.installmentBalance + this.model.interestBalance;
+					this.calDueDate();
+				}
+			}
+		});
+
 		this.varInstallBalance = this.model.installmentBalance;
-		this.getDDBalance();
+		//this.getDDBalance();
 	}
 
 	calDueDate() {
-		var pDate: Date;
-		var days: number = 365;
+		var year, month, day;
+		var pDate;
 		this.loanDetailsList.forEach(loanDetailsModel => {
 			if (loanDetailsModel.zpId == this.model.zpId) {
 				if (loanDetailsModel != null) {
-					pDate = loanDetailsModel.grantDate;
-					pDate.getDate + '365';
-					this.model.dueDate = new Date(pDate.getDate + '365');
+					pDate = new Date(loanDetailsModel.installmentDate);
+					year = pDate.getFullYear();
+					month = pDate.getMonth();
+					day = pDate.getDate();
+					this.model.dueDate = new Date(year, month, day + 365);
 				}
 			}
 		});
@@ -295,7 +354,7 @@ export class ReceiptEntryAddComponent implements OnInit {
 			else
 				this.zpModel.closingBalance = 0;
 			this.zpModel.closingFlag = true;
-			//closing label visible true
+			alert("Loan fully recovered hence account may be closed.");
 		} else {
 			this.zpModel.closingBalance = 0;
 		}
@@ -303,16 +362,19 @@ export class ReceiptEntryAddComponent implements OnInit {
 	}
 
 	incrementInstallmentNo() {
+		this.model.installNo = 1;
 		this.receiptEntryList.forEach(receiptEntryDataList => {
-			if (this.receiptEntryList && (receiptEntryDataList.zpId == this.model.zpId)) {
-				this.model.installNo++;
-			} else {
-				this.model.installNo = 1;
+			if (receiptEntryDataList.zpId == this.model.zpId) {
+				this.model.installNo = receiptEntryDataList.installNo;
 			}
-
 		});
+		if (this.receiptEntryList) {
+			this.model.installNo++;
+		} else {
+			this.model.installNo = 1;
+		}
 		if (this.dueFlag == false) {
-			this.model.currentInterest = Math.round(this.zpModel.loanBalance * 0.05);
+			this.model.currentInterest = Math.round(this.loanBalance * 0.05);
 		} else {
 			this.model.currentInterest = 0;
 		}
@@ -322,9 +384,9 @@ export class ReceiptEntryAddComponent implements OnInit {
 		var total = 0;
 		this.zpDataList.forEach(zpModel => {
 			if (zpModel.id == this.model.zpId) {
-				this.total = total + zpModel.totalAmountPaid;
+				this.total = total + zpModel.receivedAmount;//zpModel.totalAmountPaid
 			}
-		})
+		});
 	}
 
 	ddAmountFocusLost() {
@@ -404,10 +466,13 @@ export class ReceiptEntryAddComponent implements OnInit {
 	}
 
 	receiptDateFocusLost() {
-		var dd, tin, yd: number;
+		var yd: number;
 		this.pdFlag = false;
+		var prevReceiptDate, dueDate;
 		// ----- check if current receipt date is less than prev receipt date---remaining
-		if (this.model.receiptDate < this.prevReceiptDate) {
+		prevReceiptDate = new Date(this.prevReceiptDate.toLocaleString() + 'T12:00:00-06:00');
+		dueDate = new Date(this.model.dueDate.toLocaleString() + 'T12:00:00-06:00');
+		if (this.model.receiptDate < prevReceiptDate && this.model.receiptDate != null) {
 			alert("This Receipt date is less than previous receipt date. You can not add record.");
 		} else {
 			if (this.dueFlag) {
@@ -415,15 +480,22 @@ export class ReceiptEntryAddComponent implements OnInit {
 				this.model.currentInterest = this.varInstallInerest;
 			}
 			if (this.dueFlag || this.dueNextFlag) {
-				if (this.model.receiptDate > this.model.dueDate) {
-					yd = this.model.dueDate.getMonth() - this.model.receiptDate.getMonth()
-						+ (12 * (this.model.dueDate.getFullYear() - this.model.receiptDate.getFullYear()));
-					if (yd = 0) {
+				if (this.model.receiptDate > dueDate) {
+					/*'if amount is received after due date then calculate penal on ((inst. amt+intere.amt) * 0.02) before updating both bal
+						also calculate difference between receipt date and due date in months
+						and calculate ((inst. amt+intere.amt) * 0.02)*month_differnce*/
+					//calculate difference between receipt date and due date in months
+					yd = this.model.receiptDate.getMonth() - dueDate.getMonth()
+						+ (12 * (this.model.receiptDate.getFullYear() - dueDate.getFullYear()));
+					if (yd == 0) {
+						//if amount_rece in same m then show value of txtcint in txtinterest_bal only. no penelty
 						this.model.interestBalance = this.model.currentInterest;
+						//if amount is received on the same year as the year of due date then do not take year diff in calculation
 						this.model.duePenaultInterest = 0;
 					} else {
-						this.model.interestBalance = Math.round(this.model.currentInterest + (this.model.currentInterest / 12) * yd);
-						this.model.duePenaultInterest = Math.round((this.model.installmentBalance + (this.model.interestBalance) * 0.02) / 12) * yd;
+						//confirm the 5% cal of interest * month if amt recv after one month then prev 5% + ((txtcint)/12)i.e. 5% + one month interest
+						this.model.interestBalance = Math.round((this.model.currentInterest + ((this.model.currentInterest / 12) * yd)));
+						this.model.duePenaultInterest = Math.round((((this.model.installmentBalance + (this.model.interestBalance)) * 0.02) / 12) * yd);
 					}
 				} else {
 					this.model.duePenaultInterest = 0;
@@ -436,21 +508,30 @@ export class ReceiptEntryAddComponent implements OnInit {
 				if (this.duePrevFlag) {
 					this.varInterestBalance = this.model.interestBalance;
 					this.model.currentInterest = Math.round(this.model.installmentBalance * 0.05);
-					if (this.model.receiptDate > this.model.dueDate) {
-						if (this.prevReceiptDate > this.model.dueDate) {
-							yd = this.prevReceiptDate.getMonth() - this.model.receiptDate.getMonth()
-								+ (12 * (this.prevReceiptDate.getFullYear() - this.model.receiptDate.getFullYear()));
+					if (this.model.receiptDate > dueDate) {
+						/*if amount is received after due date then calculate penal on ((inst. amt+intere.amt) * 0.02) before updating both bal
+							also calculate difference between Current receipt date and Previous receipt date in years
+							and calculate ((inst. amt+intere.amt) * 0.02)*year_differnce */
+						if (prevReceiptDate > dueDate) {
+							yd = this.model.receiptDate.getMonth() - prevReceiptDate.getMonth()
+								+ (12 * (this.model.receiptDate.getFullYear() - prevReceiptDate.getFullYear()));
 						} else {
-							yd = this.model.dueDate.getMonth() - this.model.receiptDate.getMonth()
-								+ (12 * (this.model.dueDate.getFullYear() - this.model.receiptDate.getFullYear()));
+							yd = this.model.receiptDate.getMonth() - dueDate.getMonth()
+								+ (12 * (this.model.receiptDate.getFullYear() - dueDate.getFullYear()));
 						}
 						if (yd == 0) {
+							/*if amount_rece in same m then show value of txtcint in txtinterest_bal only. no penel
+									if amount is received on the same year as the year of due date then do not take year diff in calculation */
 							this.model.duePenaultInterest = 0;
 						} else {
-							this.model.interestBalance = Math.round(this.model.interestBalance + (this.model.currentInterest / 12) * yd);
-							this.model.duePenaultInterest = Math.round((this.model.installmentBalance + (this.model.interestBalance) * 0.02) / 12) * yd;
+							/*confirm the 5% cal of interest * month
+								if amt rece after one month then prev 5% + ((txtcint)/12)i.e. 5% + one month interest
+									new 29May04- take 5% interest on inst bal **confirm this calculation 5%on instbal+interestbal */
+							this.model.interestBalance = Math.round((this.varInterestBalance + ((this.model.currentInterest / 12) * yd)));
+							this.model.duePenaultInterest = Math.round((((this.model.installmentBalance + (this.model.interestBalance)) * 0.02) / 12) * yd);
 						}
 					} else {
+						//if amt received within due date not necessary to cal intr so it is zero
 						this.model.duePenaultInterest = 0;
 					}
 					this.varInterestBalance = this.model.interestBalance;
@@ -463,31 +544,33 @@ export class ReceiptEntryAddComponent implements OnInit {
 		}
 	}
 	getDDBalance() {
-		this.receiptEntryList.forEach(model =>{
-			if(model.zpId == this.model.zpId){
-				this.prevReceiptDate  = this.model.receiptDate;
-				
-			}
+		this.rcptEntryEZPIdList.forEach(model => {
+			this.prevReceiptDate = model.receiptDate;
 		});
 	}
 
 	calculateInterest() {
-		var dd1, dd2, tin1, tin2, sum;
+		var dd1, dd2, tin1, tin2, sum, dueDate, install1Date, install2Date, install3Date;
+		dueDate = new Date(this.model.dueDate.toLocaleString() + 'T12:00:00-06:00');
+		install1Date = new Date(this.install1Date.toLocaleString() + 'T12:00:00-06:00');
+		install2Date = new Date(this.install2Date.toLocaleString() + 'T12:00:00-06:00');
+		install3Date = new Date(this.install3Date.toLocaleString() + 'T12:00:00-06:00');
 		if (this.install1Amount != null) {
-			dd1 = this.model.dueDate.getMonth() - this.install1Date.getMonth()
-				+ (12 * (this.model.dueDate.getFullYear() - this.install1Date.getFullYear()));
+			//take date difference between inst1_date and first due_date in days
+			dd1 = dueDate.getMonth() - install1Date.getMonth()
+				+ (12 * (dueDate.getFullYear() - install1Date.getFullYear()));
 			tin1 = Math.round(((this.install1Amount) * 0.05) / 12);
 			sum = dd1 * tin1;
 		}
 		if (this.install2Amount != null) {
-			dd2 = this.model.dueDate.getMonth() - this.install2Date.getMonth()
-				+ (12 * (this.model.dueDate.getFullYear() - this.install2Date.getFullYear()));
+			dd2 = dueDate.getMonth() - install2Date.getMonth()
+				+ (12 * (dueDate.getFullYear() - install2Date.getFullYear()));
 			tin2 = Math.round(((this.install2Amount) * 0.05) / 12);
 			sum = sum + (dd2 * tin2);
 		}
 		if (this.install3Amount != null) {
-			dd2 = this.model.dueDate.getMonth() - this.install3Date.getMonth()
-				+ (12 * (this.model.dueDate.getFullYear() - this.install3Date.getFullYear()));
+			dd2 = dueDate.getMonth() - install3Date.getMonth()
+				+ (12 * (dueDate.getFullYear() - install3Date.getFullYear()));
 			tin2 = Math.round(((this.install3Amount) * 0.05) / 12);
 			sum = sum + (dd2 * tin2);
 		}
@@ -495,6 +578,7 @@ export class ReceiptEntryAddComponent implements OnInit {
 	}
 
 	calculateInterestDDBalance() {
+		//for calculating balance of dd after receiving interest amt
 		if (this.varInterestBalance != 0) {
 			if (this.ddAmtBal >= this.varInterestBalance) {
 				this.ddAmtBal = this.ddAmtBal - this.varInterestBalance;
@@ -529,7 +613,6 @@ export class ReceiptEntryAddComponent implements OnInit {
 					this.model.interestAmount = this.ddAmtBal;
 				}
 			}
-
 		}
 	}
 
@@ -597,6 +680,37 @@ export class ReceiptEntryAddComponent implements OnInit {
 				this.zpModel.closingFlag = false;
 		});
 		this.zpService.update(this.zpModel);
+	}
+
+	clearFeilds() {
+        this.orderNumber = 0;
+        this.ledgerNumber = 0;
+        this.grantDate = null;
+        this.loanAmount = 0;
+		//this.model.installNo = 0;
+		this.loanAmount = 0;
+		this.yerlyInstallment = 0;
+		this.loanBalance = 0;
+		this.total = 0;
+		this.lastDueDate = null;
+		this.install1Amount = 0;
+		this.install1Date = null;
+		this.install2Amount = 0;
+		this.install2Date = null;
+		this.install3Amount = 0;
+		this.install3Date = null;
+		this.selectedVillage = '';
+    	this.selectedWorkP  = '';
+    }
+
+	cancel() {
+
+		//if (this.button == 'दुरुस्ती करा') {
+		this.router.navigate(['./receipt-entry-add']);
+		//} else {
+		//console.log("cancel click");
+
+		//}
 	}
 
 }

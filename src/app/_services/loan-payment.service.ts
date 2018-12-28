@@ -26,6 +26,7 @@ export class LoanPaymentService {
 
     getAll() {
 
+        
         // Make the GET HTTP request:
         return this._http.get(this._baseService.BaseUrl() + "/loan-details/getAll");
         // return this._http.get<User[]>('/api/users');
@@ -43,5 +44,9 @@ export class LoanPaymentService {
 
     getLoanDetailsRecordsByZpId(): any {
         return this._http.get(this._baseService.BaseUrl() + "/loan-details/getLoanDetailsRecordsByZpId");
+      }
+
+    getInstallmentdetails(zpId: number) {
+        return this._http.get<any>(this._baseService.BaseUrl() + "/loan-details/getInstallmentdetails/id/"+ zpId);
       }
 }
